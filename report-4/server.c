@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
                     // State s5: Register username
                     memset(rbuf, 0, sizeof(rbuf));
                     if (read(client_socks[i], rbuf, sizeof(rbuf)) > 0) {
-                        rbuf[strcspn(rbuf, "\n")] = '\0';  // Remove newline character
+                        rbuf[strcspn(rbuf, "\n")] = '\0';  // Remove newline character/
                         if (usernameExists(rbuf, usernames)) {
                             write(client_socks[i], "USERNAME ALREADY EXISTS\n", 25);
                             close(client_socks[i]);
@@ -149,8 +149,8 @@ int main(int argc, char **argv) {
                     k--;
                 } else {
                     // State s6: Broadcast message with username or handle DM
-                    rbuf[strcspn(rbuf, "\n")] = '\0';  // Remove newline character
-                    if (strncmp(rbuf, "send ", 5) == 0) {
+                    //rbuf[strcspn(rbuf, "\n")] = '\0';  // Remove newline character
+                    if (strncmp(rbuf, "/send ", 5) == 0) {
                         char *target_username = strtok(rbuf + 5, " ");
                         char *message = strtok(NULL, "\0");
                         int target_sock = getUserSocket(target_username, usernames, client_socks);

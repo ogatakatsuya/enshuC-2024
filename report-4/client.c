@@ -87,7 +87,11 @@ int main(int argc, char **argv) {
                             perror("read");
                             close(sock);
                             exit(1);
-                        } else if (nbytes > 0) {
+                        } else if (nbytes == 0) {
+                            printf("Server has closed the connection.\n");
+                            close(sock);
+                            exit(0);
+                        } else {
                             printf("%s\n", rbuf);
                         }
                     }
